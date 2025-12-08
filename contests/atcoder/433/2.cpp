@@ -21,51 +21,33 @@ typedef complex<ll> P;
 #define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
 #define rep(i, a, b) for (int i = (a); i < (b); i++)
 #define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
-const int INF = 1e9+1;
-
-vll a;
-vector<ll> tree;
-
-
-void build(ll node, ll l, ll r){
-    if(l==r) {
-        tree[node] = a[l];
-        return;
-    }
-    ll md = (l+r)/2;
-    build(2*node, l, md);
-    build(2*node+1, md+1, r);
-    tree[node] = min(tree[2*node], tree[2*node+1]);
-}
-
-ll query(ll node, ll l, ll r, ll ql, ll qr){
-    if(ql>r || qr<l) return INF;
-    if(ql<= l && r<= qr) return tree[node];
-    ll md = (l+r)/2;
-    ll x = query(2*node, l, md, ql, qr);
-    ll y = query(2*node+1, md+1, r, ql, qr);
-    return min(x,y);
-}
+const ll INF = 1e18;
 
 void sol(){
-    ll n,q;
-    i2(n,q);
-    a.resize(n);
-    iArray(a,n);
-    tree.resize(4*n+1);
+    ll n;
+    cin >> n;
+    vll v(n);
+    iArray(v,n);
 
-    build(1, 0, n-1);
-    while(q--){
-        ll x,y;
-        i2(x,y);
-        x--;
-        y--;
-        o1(query(1,0,n-1,x,y));
+    stack<ll> stk;
+    for(ll i = 0; i < n; i++) {
+        while(!stk.empty() && v[stk.top()]<=v[i]){
+            stk.pop();
+        }
+        if(stk.empty()){
+            o1(-1);
+            stk.push(i);
+        }
+        else{
+            o1(stk.top()+1);
+            stk.push(i);
+        }
     }
-
-
+    
 }
 
 int main(){

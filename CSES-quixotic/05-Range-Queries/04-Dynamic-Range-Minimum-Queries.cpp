@@ -49,20 +49,39 @@ ll query(ll node, ll l, ll r, ll ql, ll qr){
     return min(x,y);
 }
 
+void update(ll node, ll l, ll r, ll idx, ll val){
+    if(l == idx && r == idx){
+        tree[node] = val;
+        return;
+    }
+    if(idx<l || idx>r) return;
+    ll md = (l+r)/2;
+
+    update(2*node, l, md, idx, val);
+    update(2*node+1, md+1, r, idx, val);
+
+    tree[node] = min(tree[2*node], tree[2*node+1]);
+}
+
 void sol(){
     ll n,q;
     i2(n,q);
     a.resize(n);
     iArray(a,n);
     tree.resize(4*n+1);
-
     build(1, 0, n-1);
     while(q--){
-        ll x,y;
+        ll k,x,y;
+        cin >> k;
         i2(x,y);
+        
         x--;
         y--;
-        o1(query(1,0,n-1,x,y));
+        if(k==1){
+            y++;
+            update(1,0,n-1,x,y);
+        }
+        else o1(query(1,0,n-1,x,y));
     }
 
 

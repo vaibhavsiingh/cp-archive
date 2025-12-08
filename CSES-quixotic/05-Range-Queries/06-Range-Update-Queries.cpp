@@ -21,33 +21,34 @@ typedef complex<ll> P;
 #define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
 #define rep(i, a, b) for (int i = (a); i < (b); i++)
 #define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
-const int INF = 1e9+1;
+const ll INF = 1e18;
 
 vll a;
 vector<ll> tree;
 
 
-void build(ll node, ll l, ll r){
-    if(l==r) {
-        tree[node] = a[l];
+void update(ll node, ll l, ll r, ll ql, ll qr, ll val){
+    if(r<ql || qr<l) return;
+    if(ql<=l && r<= qr){
+        tree[node] += val;
         return;
     }
     ll md = (l+r)/2;
-    build(2*node, l, md);
-    build(2*node+1, md+1, r);
-    tree[node] = min(tree[2*node], tree[2*node+1]);
+    update(2*node, l, md, ql, qr, val);
+    update(2*node+1, md+1, r, ql, qr, val); 
 }
 
-ll query(ll node, ll l, ll r, ll ql, ll qr){
-    if(ql>r || qr<l) return INF;
-    if(ql<= l && r<= qr) return tree[node];
+ll query(ll node, ll l, ll r, ll idx ){
+    if(l==idx && r ==idx) return a[idx]+tree[node];
     ll md = (l+r)/2;
-    ll x = query(2*node, l, md, ql, qr);
-    ll y = query(2*node+1, md+1, r, ql, qr);
-    return min(x,y);
+    if(idx<=md)return query(2*node, l, md, idx)+tree[node];
+    else return query(2*node+1, md+1, r, idx)+tree[node];
 }
+
 
 void sol(){
     ll n,q;
@@ -56,16 +57,22 @@ void sol(){
     iArray(a,n);
     tree.resize(4*n+1);
 
-    build(1, 0, n-1);
     while(q--){
-        ll x,y;
-        i2(x,y);
-        x--;
-        y--;
-        o1(query(1,0,n-1,x,y));
+        ll qq;
+        cin >> qq;
+        if(qq==1){
+            ll l,r,val;
+            cin >> l >> r >> val;
+            update(1, 0, n-1, --l,--r,val);
+        }
+        else{
+            ll idx;
+            cin >> idx;
+            idx--;
+            o1(query(1,0,n-1,idx));
+        }
     }
-
-
+    
 }
 
 int main(){

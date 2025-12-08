@@ -37,16 +37,16 @@ void build(ll node, ll l, ll r){
     ll md = (l+r)/2;
     build(2*node, l, md);
     build(2*node+1, md+1, r);
-    tree[node] = min(tree[2*node], tree[2*node+1]);
+    tree[node] = tree[2*node]^tree[2*node+1];
 }
 
 ll query(ll node, ll l, ll r, ll ql, ll qr){
-    if(ql>r || qr<l) return INF;
+    if(ql>r || qr<l) return 0;
     if(ql<= l && r<= qr) return tree[node];
     ll md = (l+r)/2;
     ll x = query(2*node, l, md, ql, qr);
     ll y = query(2*node+1, md+1, r, ql, qr);
-    return min(x,y);
+    return x^y;
 }
 
 void sol(){

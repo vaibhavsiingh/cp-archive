@@ -21,51 +21,44 @@ typedef complex<ll> P;
 #define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
 #define rep(i, a, b) for (int i = (a); i < (b); i++)
 #define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
-const int INF = 1e9+1;
-
-vll a;
-vector<ll> tree;
-
-
-void build(ll node, ll l, ll r){
-    if(l==r) {
-        tree[node] = a[l];
-        return;
-    }
-    ll md = (l+r)/2;
-    build(2*node, l, md);
-    build(2*node+1, md+1, r);
-    tree[node] = min(tree[2*node], tree[2*node+1]);
-}
-
-ll query(ll node, ll l, ll r, ll ql, ll qr){
-    if(ql>r || qr<l) return INF;
-    if(ql<= l && r<= qr) return tree[node];
-    ll md = (l+r)/2;
-    ll x = query(2*node, l, md, ql, qr);
-    ll y = query(2*node+1, md+1, r, ql, qr);
-    return min(x,y);
-}
+const ll INF = 1e18;
 
 void sol(){
-    ll n,q;
-    i2(n,q);
-    a.resize(n);
-    iArray(a,n);
-    tree.resize(4*n+1);
+    ll n,m;
+    cin >> n >> m;
+    vll v(n);
+    iArray(v,n);    
 
-    build(1, 0, n-1);
-    while(q--){
-        ll x,y;
-        i2(x,y);
-        x--;
-        y--;
-        o1(query(1,0,n-1,x,y));
+    ll mx = 1;
+
+    for(ll i = 0; i < n; i++) {
+       mx = max((ll)log10(v[i])+1,mx); 
     }
 
+    vector<vll> mat(n,vll(mx+1));
+    vector<unordered_map<ll,ll>> data(mx+1);
+    for(ll i = 0; i < n; i++) {
+        __int128_t x = v[i];
+        for(ll j=0; j<=mx; j++){
+            mat[i][j] = x%m;
+            x *= 10;            
+        }
+        data[(ll)floor(log10(v[i]))+1][(__int128_t)v[i]%m]+=1;
+    }
 
+    ll ans=0;    
+    for(ll i=0; i<n; i++){
+        for(ll j=1; j<=mx; j++){
+            if(mat[i][j]==0) ans += data[j][0];
+            else ans += data[j][m-mat[i][j]];
+        }
+    }
+    o1(ans);
+    
 }
 
 int main(){
