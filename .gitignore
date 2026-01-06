@@ -1,5 +1,5 @@
 .vs
 .cph
 .vscode
-a.exe
-a.out
+*.exe
+*.out
