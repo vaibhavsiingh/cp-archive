@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef int64_t ll;
+typedef vector<ll> vll;
+typedef pair<ll, ll> pll;
+typedef complex<ll> P;
+
+#define X real()
+#define Y imag()
+#define pb push_back
+#define pob pop_back
+#define ff first
+#define ss second
+#define sz size
+#define reach cout << "Reached" << endl;
+#define o1(a) cout << a << "\n"
+#define o2(a, b) cout << a << ' ' << b << "\n";
+#define iArray(a, n) for (ll i = 0; i < n; i++) cin >> a[i];
+#define i2(a, b) cin >> a >> b;
+#define oArray(a, n) for (ll i = 0; i < n; i++) cout << a[i] << ' '; cout << endl;
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
+
+const ll MOD = 1000000007;
+const ll INF = 1e18;
+
+void sol(){
+    ll n;
+    cin >>n;
+    string s;
+    cin >> s;
+    //reach;
+    ll n0= 0, n1 =0;
+    for(ll i=0; i<n; i++){
+        if(s[i]=='0')n0++;
+        else n1++;
+    }
+    if(n0==0 || n1 ==0){
+        o1("Bob");
+        return;
+    }
+    n1=0;
+    vll ans;
+    ll i=0;
+    for(; i<n; i++){
+        if(s[i]=='0') n0--;
+        else n1++, ans.pb(i+1);
+        if(n1==n0) break;
+    }
+    if(ans.size()==0){
+        o1("Bob");
+        return;
+    }
+    i++;
+    for(;i<n;i++){
+        if(s[i]=='0') ans.pb(i+1);
+    }
+    o1("Alice");
+    o1(ans.size());
+    oArray(ans,ans.size());
+
+}
+
+int main(){
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    ll t;
+    cin >> t;
+    for(ll i = 0; i < t; i++) {
+        sol();
+    }
+    return 0;
+}

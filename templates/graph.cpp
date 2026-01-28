@@ -65,10 +65,6 @@ vector<int> toposort(int n, const vector<vector<int>>& adj) {
                 q.push(v);
         }
     }
-
-    // Check for cycle
-    if (order.size() != n) return {}; // return empty if cycle detected
-    return order;
 }
 
 void Dijkstra(vector<vector<pll>> adj, vll& distance, ll start ){
