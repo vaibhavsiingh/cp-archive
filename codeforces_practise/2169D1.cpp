@@ -28,26 +28,38 @@ const ll MOD = 1000000007;
 const ll INF = 1e18;
 
 void sol(){
-    ll n;
-    cin >> n;
-    ll an = 1;
-    while(an<n){
-        an = an << 1;        
+    ll x,y,k;
+    cin >> x >> y >> k;
+    for(ll i=0; i<x; i++){
+        ll l=1,r=1e12;
+        ll kdash=-1;
+        while(l<=r){
+           // o2(l,r);
+            ll md = (l+r)/2;
+            ll res = md - md/y;
+            if(res<k){
+                l = md+1;
+            }
+            else if(res >k){
+                r = md-1;
+            }
+            else{
+                if(md%y==0) kdash = md-1;
+                else kdash = md;
+                break;
+            }
+        }
+        if(kdash == -1){
+            o1(-1);
+   //         o1("");
+            return;
+        }
+        k = kdash;
+    //    o1(k);
     }
-    if(n!=an-1){
-        o1(-1);
-        return;                
-    }
-    an = an >> 1;
-    vll ans(n+1);
-    for(int i=1; i<n; i++){
-        ans[i] = i^an;
-    }
-    ans[n] = an;
-    for(int i=1; i<=n; i++) cout << ans[i] << ' ';
-    cout << endl;
+    o1(k);
+   // o1("");
 }
-
 
 int main(){
     std::ios::sync_with_stdio(false);
