@@ -18,32 +18,34 @@ typedef complex<ll> P;
 #define o2(a, b) cout << a << ' ' << b << "\n";
 #define iArray(a, n) for (ll i = 0; i < n; i++) cin >> a[i];
 #define i2(a, b) cin >> a >> b;
-#define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
+#define oArray(a, n) for (ll i = 0; i < n; i++) cout << a[i] << ' '; cout << endl;
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
+const ll INF = 1e18;
 
 void sol(){
-    ll n;
-    cin >> n;
-    ll sm = ((n)*(n+1))/2;
-    if(sm%2) {
-        o1(0);
-        return;
+    vll a(3);
+    iArray(a,3);
+    sort(all(a));
+
+    if(a[1]>=50 && a[2]>=50){
+        o1("Yes");
     }
-    sm/=2;
-    vll dp(sm+1);
-    dp[0] = 1;
-    for(ll i = 1; i < n; i++) {
-        for(ll j=sm; j>=i; j--){
-            dp[j]=(dp[j]+dp[j-i])%MOD;
-        }
-    }
-    o1(dp[sm]);
+    else o1("No");
 }
 
 int main(){
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    sol();
+    ll t;
+    cin >> t;
+    for(ll i = 0; i < t; i++) {
+        sol();
+    }
+    return 0;
 }

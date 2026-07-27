@@ -19,27 +19,46 @@ typedef complex<ll> P;
 #define iArray(a, n) for (ll i = 0; i < n; i++) cin >> a[i];
 #define i2(a, b) cin >> a >> b;
 #define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
-
+const ll INF = 1e18;
 
 void sol(){
-    ll n;
-    cin >> n;
+    ll n,m,k;
+    cin >> n >> m >> k;
+    
     vll a(n);
     iArray(a,n);
-    vll ans;
-    ans.push_back(a[0]);
-    for(ll i = 1; i < n; i++) {
-            if(a[i]>ans.back()){
-                ans.push_back(a[i]);
-            }
-            else{
-                ll idx = lower_bound(ans.begin(),ans.end(),a[i]) - ans.begin();
-            ans[idx] = a[i];
+
+    vll b(m);
+    iArray(b,m);
+
+    sort(all(a));
+    sort(all(b));
+
+    ll pa=0, ptb=0;
+    int cnt = 0;
+
+    while(pa < n && ptb < m){
+        // cout << pa << ' ' << ptb << endl;
+        // cout << a[pa] << ' ' << b[ptb] << endl;
+        if(a[pa]-k <= b[ptb] && b[ptb] <= a[pa] + k){
+            cnt++;
+            pa++;
+            ptb++;
+        }
+        else if(b[ptb] < a[pa]-k){
+            ptb++;
+        }
+        else if(b[ptb] > a[pa]+k){
+            pa++;
         }
     }
-    o1(ans.size());
+    o1(cnt);
 }
 
 int main(){

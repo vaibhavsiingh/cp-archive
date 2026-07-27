@@ -19,23 +19,40 @@ typedef complex<ll> P;
 #define iArray(a, n) for (ll i = 0; i < n; i++) cin >> a[i];
 #define i2(a, b) cin >> a >> b;
 #define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
+const ll INF = 1e18;
 
 void sol(){
     ll n,x;
     i2(n,x);
-    vector<ll> v(n);
-    iArray(v,n);
 
-    vll dp(x+1);
-    dp[0] = 1;
-    for(ll i = 0; i < n; i++) {
-        for(ll j=1; j<=x; j++){
-            if(j-v[i]>=0) dp[j]=(dp[j]+dp[j-v[i]])%MOD;
+    vll a(n);
+    iArray(a,n);
+    
+    sort(all(a));
+
+    ll l=0,r=n-1;
+    int cnt = 0;
+    while(l<r){
+        if(a[l]+a[r]>x){
+            cnt++;
+            r--;
+        }
+        else{
+            cnt++;
+            l++;
+            r--;
         }
     }
-    o1(dp[x]);
+    if(l==r){
+        cnt++;
+    }
+    o1(cnt);
 }
 
 int main(){

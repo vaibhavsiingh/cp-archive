@@ -19,29 +19,25 @@ typedef complex<ll> P;
 #define iArray(a, n) for (ll i = 0; i < n; i++) cin >> a[i];
 #define i2(a, b) cin >> a >> b;
 #define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
+const ll INF = 1e18;
 
 void sol(){
     ll n;
     cin >> n;
-    vector<vll> v(n,vll(3));
-    for(ll i = 0; i < n; i++) {
-        cin >> v[i][0] >> v[i][1] >> v[i][2];
+    ll sm = 0;
+    for(ll i = 0; i < n-1; i++) {
+        ll x;
+        cin >> x;
+        sm += x;
     }
-    map<ll,ll> m;
-    sort(v.begin(), v.end(), [](const vector<ll> &a, const vector<ll> &b) {
-        if (a[1] == b[1]) return a[0] < b[0];
-        return a[1] < b[1];
-    });
-    m[0] = 0;
-    for(ll i=0; i<n; i++){
-        auto x = m.lower_bound(v[i][0]);
-        x--;
-        m[v[i][1]] = max((--m.end())->second,x->second + v[i][2]);
-    }
-    o1((--m.end())->second);
-
+    ll ex_sum = (n*(n+1))/2;
+    o1(ex_sum - sm);
 }
 
 int main(){

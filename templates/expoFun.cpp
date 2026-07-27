@@ -35,6 +35,13 @@ ll expo(ll a, ll b){
     }
 }
 
+ll accurateFloor(ll a, ll b) {
+	ll val = a / b;
+	while (val * b > a)
+		val--;
+	return val;
+}
+
 void sol(){
     
 }

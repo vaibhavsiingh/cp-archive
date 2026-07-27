@@ -19,36 +19,34 @@ typedef complex<ll> P;
 #define iArray(a, n) for (ll i = 0; i < n; i++) cin >> a[i];
 #define i2(a, b) cin >> a >> b;
 #define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
+const ll INF = 1e18;
 
 void sol(){
     ll n;
     cin >> n;
-    vll v(n);
-    iArray(v,n);
-    //v.insert(v.begin(),0);
-    // map<pll,pll> m;
-    vector<pll> m((n+1)*(n+1)+1);
-    for(ll i = 0; i <= n; i++) {
-        m[i*(n+1)+i] = {0,0};
-    }
-    for(int i=0;i<n;i++ ){
-        m[i*n+i+1] = {v[i],0};
-    }
-    for(int len = 2; len<=n; len++){
-        for(int i=0; i+len<=n; i++){
-            ll x1 = v[i]+m[(n+1)*(i+1)+i+len].ss;
-            ll x2 = v[i+len-1]+m[(n+1)*i+i+len-1].ss;
-            if(x1>x2){
-                m[i*(n+1)+i+len] = {x1,m[(n+1)*(i+1)+i+len].ff};
-            }
-            else{
-                m[i*(n+1)+i+len]= {x2,m[(n+1)*i+i+len-1].ff};
+    ll x;
+    cin >> x;
+    vll a(n);
+    iArray(a,n);
+
+    vll dp(x+1, INF);
+    dp[0] = 0;
+    for(ll val=1; val<=x; val++){
+        for(ll coin: a){
+            if(val-coin >= 0){
+                dp[val] = min(dp[val], dp[val-coin]+1);
             }
         }
     }
-    cout << m[n].ff << '\n';
+    if(dp[x]==INF) o1(-1);
+    else o1(dp[x]);
+
 }
 
 int main(){

@@ -18,33 +18,39 @@ typedef complex<ll> P;
 #define o2(a, b) cout << a << ' ' << b << "\n";
 #define iArray(a, n) for (ll i = 0; i < n; i++) cin >> a[i];
 #define i2(a, b) cin >> a >> b;
-#define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
+#define oArray(a, n) for (ll i = 0; i < n; i++) cout << a[i] << ' '; cout << endl;
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
+const ll INF = 1e18;
 
 void sol(){
-    ll n,x;
-    i2(n,x);
-    vector<ll> v(n);
-    iArray(v,n);
+    int n;
+    cin >> n;
+    string s1, s2;
+    cin >> s1 >> s2;
 
-    vll dp(x+1);
-    dp[0] = 1;
-    for(ll i = 1; i <= x; i++) {
-        for(ll j = 0; j <n ; j++) {
-            if(i-v[j]>=0) {
-                //o2(i,dp[i-v[j]]);
-                dp[i]=(dp[i]+dp[i-v[j]])%MOD;
-            }
+    int c1 = 0, c2 = 0;
+    for(int i=0; i<n; i++){
+        if(s1[i] == s2[i]){
+            if(s1[i] == '(') c1++, c2++;
+            else c1--, c2--;
         }
+        if(c1 <)
     }
-   // oArray(dp,x+1);
-    o1(dp[x]);
 }
 
 int main(){
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    sol();
+    ll t;
+    cin >> t;
+    for(ll i = 0; i < t; i++) {
+        sol();
+    }
+    return 0;
 }

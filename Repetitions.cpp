@@ -18,26 +18,28 @@ typedef complex<ll> P;
 #define o2(a, b) cout << a << ' ' << b << "\n";
 #define iArray(a, n) for (ll i = 0; i < n; i++) cin >> a[i];
 #define i2(a, b) cin >> a >> b;
-#define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
+#define oArray(a, n) for (ll i = 0; i < n; i++) cout << a[i] << ' '; cout << endl;
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
+const ll INF = 1e18;
 
 void sol(){
-    ll t;
-    cin >> t;
-    vll aa(t);
-    iArray(aa,t);
-    ll mx = *max_element(aa.begin(),aa.end());
-    vector<pll> dp(mx+1);
-    dp[1] = {1,1};
-    for(ll i = 2; i <= mx; i++) {
-        dp[i].ff = (dp[i-1].ss + 4*dp[i-1].ff)%MOD;
-        dp[i].ss = (dp[i-1].ff + 2*dp[i-1].ss)%MOD;
+    string s;
+    cin >> s;
+
+    ll curr = 1;
+    ll mx = 1;
+    int n = s.length();
+    for(ll i=1; i<n; i++){
+        if(s[i] == s[i-1]) curr++;
+        else curr = 1;
+        mx = max(mx, curr);
     }
-    for(ll i = 0; i < t; i++) {
-        o1((dp[aa[i]].ff + dp[aa[i]].ss)%MOD);
-    }
-    
+    o1(mx);
 }
 
 int main(){

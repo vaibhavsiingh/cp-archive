@@ -19,30 +19,25 @@ typedef complex<ll> P;
 #define iArray(a, n) for (ll i = 0; i < n; i++) cin >> a[i];
 #define i2(a, b) cin >> a >> b;
 #define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
-
+const ll INF = 1e18;
 
 void sol(){
-    ll n,x;
-    i2(n,x);
-    vector<ll> price(n), npages(n);
-    iArray(price,n);
-    iArray(npages,n);
-    vector<ll> dp(x+1);
-    for(int i=price[0]; i<=x; i++) dp[i]=npages[0];
-    for(ll i = 1; i < n; i++) {
-        for(int j=x; j>0; j--){
-            if(j>=price[i]){
-                dp[j]=max(dp[j],dp[j-price[i]]+npages[i]);
-            }
-            else{
-                dp[j]=dp[j];
-            }
-          //  cout << i << ' ' << j << ' ' << dp[i][j] << "\n";
-        }
+    ll n;
+    cin >> n;
+
+    set<ll> s;
+    for(ll i = 0; i < n; i++) {
+        ll x;
+        cin >> x;
+        s.insert(x);
     }
-    o1(dp[x]);
+    o1(s.size());
 }
 
 int main(){
